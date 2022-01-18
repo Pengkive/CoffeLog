@@ -10,10 +10,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- jquery 준비 시작 -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <!-- jquery 준비 끝 -->
+
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -45,11 +48,11 @@
     		if(id==null){
     	%>
      	<button class="btn btn-outline-success m-2" type="button" onclick="location.href='../LogIn/LoginForm.jsp'">로그인</button>      
-     	<button class="btn btn-outline-success" type="button" style="margin-right: 5%;" onclick="location.href='../member/signUpForm.jsp'">회원가입</button>      
+     	<button class="btn btn-outline-primary" type="button" style="margin-right: 5%;" onclick="location.href='../member/signUpForm.jsp'">회원가입</button>      
       	<%} else{ %>
     	<%=id %>님 환영합니다!  
-    	<button class="btn btn-outline-success " type="button" style="margin-left: 0.5%; " onclick="location.href='../member/info.jsp'">회원정보</button>
-    	<button class="btn btn-outline-success " type="button" style="margin-right: 5%; margin-left: 0.4%;" onclick="location.href='../member/logOut.jsp'">로그아웃</button>
+    	<button class="btn btn-outline-info " type="button" style="margin-left: 0.5%; " onclick="location.href='../member/info.jsp'">회원정보</button>
+    	<button class="btn btn-outline-danger " type="button" style="margin-right: 5%; margin-left: 0.4%;" onclick="location.href='../member/logOut.jsp'">로그아웃</button>
     	<%} %>
      
     </div>

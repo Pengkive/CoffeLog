@@ -69,7 +69,7 @@ $("#userId").keyup(function(){
 							</label>
 						</div>
 						<div class="w-50 text-md-right">
-							<a href="../signUpForm.jsp" style="color: #fff">Sign Up</a>
+							<a href="../member/signUpForm.jsp" style="color: #fff">Sign Up</a>
 						</div>
 		            </div>
 	          </form>

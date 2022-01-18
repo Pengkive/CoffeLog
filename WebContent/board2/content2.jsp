@@ -12,12 +12,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<!-- jquery 준비 시작 -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
-<!-- jquery 준비 끝 -->
+<title>로그</title>
+
 <style type="text/css">
 .table-active {
 	width: 15%;
@@ -27,7 +23,9 @@
 
 </head>
 <jsp:include page="../Include/nav.jsp" />
-
+<!-- jquery 준비 시작 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
+<!-- jquery 준비 끝 -->
 <body>
 	<%
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -56,7 +54,7 @@
 			<div type="col-6">
 				<table class="table" style="width: 70%; margin: 0 auto;">
 				<td colspan="4">
-				<input type="button" value="목록으로" onclick="location.href='list2.jsp';">
+				<input type="button" value="목록으로" onclick="location.href='list2.jsp';" class="btn btn-secondary">
 				</td>	
 					<tr>
 						<th scope="row" class="table-active">글번호</th>
@@ -99,9 +97,9 @@
 						<td colspan="4">
 							<%
 								if (bb2.getId().equals(id) || id.equals("admin")) {
-							%> <input type="button" value="수정하기"
+							%> <input type="button" class="btn btn-warning" value="수정하기"
 							onclick="location.href='updateForm2.jsp?num=<%=num%>';">
-							<input type="button" value="삭제하기" onclick="delete2()"> 
+							<input type="button" class="btn btn-danger" value="삭제하기" onclick="delete2()"> 
 							<%}%>
 						</td>
 					</tr>

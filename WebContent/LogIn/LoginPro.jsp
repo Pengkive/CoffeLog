@@ -15,14 +15,11 @@
 </head>
 <body>
 
-
-%>
 	<jsp:useBean id="mb" class="com.coffeelog.member.memberBean"/>
 	<jsp:setProperty property="*" name="mb"/>
-<%
 
-	System.out.println("회원 : " + mb);
-
+	<%
+	//	System.out.println("회원 : " + mb);
 
 	memberDAO mdao = new memberDAO();
 	
@@ -33,24 +30,23 @@
 	    session.setAttribute("id", mb.getId() );
 	   
     //main.jsp 페이지 이동 
-    	%>
-    	     <script type="text/javascript">
-    	        alert("<%=mb.getId()%>님 환영합니다!");
-    	        location.href="../main/main.jsp";
-    	     </script>
-   		<%
-    }
-	 else if(mdao.login(mb) == 0){
+    %>
+  	     <script type="text/javascript">
+  	        alert("<%=mb.getId()%>님 환영합니다!");
+  	        location.href="../main/main.jsp";
+  	     </script>
+   	<%
+   	}else if(mdao.login(mb) == 0){
     		 //비밀번호 다름.(+ 회원이다)
-    		 %>
+    %>
     		 <script type="text/javascript">
     		   alert(" 비밀번호 오류!!! ");
     		   history.back();
     		 </script>    		 
-    		 <%
+    <%
     	 // 비회원이다.
      }else{
-    	 %>
+    %>
 		 	<script type="text/javascript">
 		    // confirm(" 비회원 입니다. 회원가입 하겠습니까? ")
 		    // Y - 회원가입 페이지 이동, N -페이지 뒤로가기
@@ -64,7 +60,8 @@
 		   //alert(" 비회원 입니다 !!! ");
 		  
 		 </script>    		 
-		 <%}
-		 %>
+	<%
+	}
+	%>
 </body>
 </html>
