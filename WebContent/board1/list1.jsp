@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Info Board </title>
 
 <jsp:include page="../Include/nav.jsp"/>
 </head>
@@ -44,7 +44,7 @@
    // 게시판 페이징 처리 : DB에서 원하는 만큼만 글 가져오기
    
    // 한페이지당 보여줄 글의 개수 
-   int pageSize = 10;
+   int pageSize = 5;
    
    // 현페이지가 몇페이지 인지 확인
    String pageNum = request.getParameter("pageNum");
@@ -74,7 +74,7 @@
  <!-- 글쓰기 버튼 생성 --> 
  	<div align="right">
 		<input type="button" class="btn btn-success" value="글쓰기" onclick="write1()">
-	</div>
+	</div><br>
 	
  <!-- table 생성 -->  	
  <div class="row">		

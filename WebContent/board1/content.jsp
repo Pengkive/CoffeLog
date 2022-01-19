@@ -42,10 +42,9 @@
 	</script>
 
 	<div class="container">
-		<div class="row">
-		<div class="col-3"></div>
-		<div class="col-6">
-			<table class="table" style="width: 70%; margin: 0 auto;">
+		<div class="form-group col-6 mx-auto">
+		
+			<table class="table">
 				<tr>
 					<td scope="row" class="table-active">글번호</td>
 					<td><%=bb.getNum()%></td>
@@ -71,28 +70,19 @@
 						<%
 						   if (bb.getId().equals(id) || id.equals("admin")) {
 						%>
-						<input type="button" value="수정하기" onclick="location.href='updateForm.jsp?num=<%=bb.getNum()%>';">
-						<input type="button" value="삭제하기" onclick="info_delete()">
+						<input type="button" class="btn btn-warning" value="수정하기" onclick="location.href='updateForm.jsp?num=<%=bb.getNum()%>';">
+						<input type="button" class="btn btn-danger" value="삭제하기" onclick="info_delete()">
 						<% } 
 						%>
-						<input type="button" value="목록으로" onclick="location.href='list1.jsp';">
+						<input type="button" class="btn btn-secondary" value="목록으로" onclick="location.href='list1.jsp';">
 					</td>
 				</tr>
 			</table>
-
-			</div><!-- col-6 끝-->
-		</div> 
-	</div>
-
-			<div class="col-3"></div>
+		</div>
 
 	</div>
-		<!-- div row 끝 -->
-	</div>
-	<!-- container 끝 -->
 <p/>
 
-			
 
 <!-- footer -->
 <jsp:include page="../Include/sticky-footer/footer.jsp" />

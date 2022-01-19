@@ -21,4 +21,5 @@ request.setCharacterEncoding("utf-8");
 	memberDAO mdao = new memberDAO();
 	
 	int idCheck = mdao.idCheck(id);      
-	%><%=idCheck %>
+	%>
+	<%=idCheck %>

@@ -336,11 +336,9 @@
 		</div>
 		<!-- 전체 row 끝 -->
 
-	</div>
+	</div> <!-- 본문 내용 끝 -->
 
-	<!-- 본문 내용 끝 -->
-
-  	<!-- footer -->
+<!-- footer -->
 <jsp:include page="../Include/sticky-footer/footer.jsp"/>
 </body>
 
