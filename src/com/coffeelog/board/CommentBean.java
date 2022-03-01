@@ -5,10 +5,10 @@ import java.sql.Date;
 public class CommentBean {
 
 		private int num;	//댓글 번호
-		private String content;	//댓글 내용
-		private Date re_date;	//댓글 작성일
-		private String id;	//댓글 작성자
-		private String info_b_num;	//게시판 글 번호
+		private String c_content;	//댓글 내용
+		private Date c_date;	//댓글 작성일
+		private String c_id;	//댓글 작성자
+		private int info_b_num;	//게시글 번호
 		/**
 		 * @return the num
 		 */
@@ -22,62 +22,64 @@ public class CommentBean {
 			this.num = num;
 		}
 		/**
-		 * @return the content
+		 * @return the c_content
 		 */
-		public String getContent() {
-			return content;
+		public String getC_content() {
+			return c_content;
 		}
 		/**
-		 * @param content the content to set
+		 * @param c_content the c_content to set
 		 */
-		public void setContent(String content) {
-			this.content = content;
+		public void setC_content(String c_content) {
+			this.c_content = c_content;
 		}
 		/**
-		 * @return the re_date
+		 * @return the c_date
 		 */
-		public Date getRe_date() {
-			return re_date;
+		public Date getC_date() {
+			return c_date;
 		}
 		/**
-		 * @param re_date the re_date to set
+		 * @param c_date the c_date to set
 		 */
-		public void setRe_date(Date re_date) {
-			this.re_date = re_date;
+		public void setC_date(Date c_date) {
+			this.c_date = c_date;
 		}
 		/**
-		 * @return the id
+		 * @return the c_id
 		 */
-		public String getId() {
-			return id;
+		public String getC_id() {
+			return c_id;
 		}
 		/**
-		 * @param id the id to set
+		 * @param c_id the c_id to set
 		 */
-		public void setId(String id) {
-			this.id = id;
+		public void setC_id(String c_id) {
+			this.c_id = c_id;
 		}
 		/**
 		 * @return the info_b_num
 		 */
-		public String getInfo_b_num() {
+		public int getInfo_b_num() {
 			return info_b_num;
 		}
 		/**
 		 * @param info_b_num the info_b_num to set
 		 */
-		public void setInfo_b_num(String info_b_num) {
+		public void setInfo_b_num(int info_b_num) {
 			this.info_b_num = info_b_num;
 		}
 		/* (non-Javadoc)
 		 * @see java.lang.Object#toString()
 		 */
+		
 		@Override
 		public String toString() {
-			return "CommentBean [num=" + num + ", content=" + content + ", re_date=" + re_date + ", id=" + id
+			return "CommentBean [num=" + num + ", c_content=" + c_content + ", c_date=" + c_date + ", c_id=" + c_id
 					+ ", info_b_num=" + info_b_num + "]";
 		}
 		
 		
-	
 }
+		
+	

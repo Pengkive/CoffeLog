@@ -1,10 +1,12 @@
 package com.coffeelog.board;
 
 import java.io.Console;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -64,26 +66,25 @@ public class CommentDAO {
 	//commentWrite(cb) 시작
 	public void commentWrite(CommentBean cb){
 		
-		int num = 0;
+		int c_num = 0;
 	
 		try {
 			conn = getConnection();
-			
+			sql = "select max(c_num) from comment";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
 
-				num = rs.getInt(1) + 1;
+				c_num = rs.getInt(1) + 1;
 				
 				sql = "insert into comment values(?,?,now(),?,?)";
 				
 				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, num); //c_num
-				pstmt.setString(2, cb.getContent());	// comment_content
-				pstmt.setString(3, cb.getId());		// comment_id
-				pstmt.setString(4, cb.getInfo_b_num());	// info_board_num
+				pstmt.setInt(1, c_num); //comment_number
+				pstmt.setString(2, cb.getC_content());	// comment_content
+				pstmt.setString(3, cb.getC_id());	
+				pstmt.setInt(4, cb.getInfo_b_num());	
 				
 				pstmt.executeUpdate();
 				
@@ -98,6 +99,50 @@ public class CommentDAO {
 		}
 		
 	}//commentWrite(cb) 끝
+	
+	
+	//commentList()
+	@SuppressWarnings("unchecked")
+	public ArrayList<CommentBean> commentList() {
+
+		ArrayList commentListAll = new ArrayList();
+
+		CommentBean cb = null;
+
+		try {
+
+			conn = getConnection();
+
+			sql = "select * from comment";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				cb = new CommentBean();
+
+				cb.setNum(rs.getInt("num"));
+				cb.setC_content(rs.getString("c_content"));
+				cb.setC_date(rs.getDate("c_date"));
+				cb.setC_id(rs.getString("c_id"));
+				cb.setInfo_b_num(rs.getInt("info_b_num"));
+
+				commentListAll.add(cb);
+
+			} // while 끝
+
+			System.out.println(" 댓글 모든정보 저장완료! ");
+			System.out.println(" 총 " + commentListAll.size() + "개");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+
+		return commentListAll;
+	}// commentList()
 	
 	
 }

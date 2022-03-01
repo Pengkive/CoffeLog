@@ -86,7 +86,6 @@
 					c_content : comment
 				},
 				sucess:function(data){
-					
 					console.log("데이터 보내기 성공");
 				}
 		
@@ -148,7 +147,6 @@
 				</form>
 		<%}%>		
 <!-- 댓글 리스트 -->
-
 		<!-- 댓글 끝 -->
 		</div>
 	</div>
