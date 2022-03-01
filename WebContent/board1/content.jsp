@@ -1,3 +1,5 @@
+<%@page import="com.coffeelog.board.CommentBean"%>
+<%@page import="com.coffeelog.board.CommentDAO"%>
 <%@page import="com.coffeelog.board.BoardBean"%>
 <%@page import="com.coffeelog.board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,28 +19,84 @@
 <body>
 
 	<%
-	
 		int num = Integer.parseInt(request.getParameter("num"));
 		String pageNum = request.getParameter("pageNum");
-		// BoardDAO 객체 생성
-		BoardDAO bdao = new BoardDAO();
-		bdao.updateReadcount(num);
-	
 		// DB에서 글번호(num)에 해당하는 글정보를 모두 가져와서 출력	
+		BoardDAO bdao = new BoardDAO();
 		BoardBean bb = bdao.getBoard(num);
 		
+		Cookie[] cookieRequest = request.getCookies();
+		String cookieValue = null;
+		for(int i=0; i<cookieRequest.length; i++){
+			
+			cookieValue = cookieRequest[0].getValue();
+		}
+		
+		if(session.getAttribute(num+":cookie")== null){
+				session.setAttribute(num+":cookie",num + ":" + cookieValue);		
+		}else{
+			session.setAttribute(num+":cookie ex", session.getAttribute(num+":cookie"));
+			if (!session.getAttribute(num+":cookie").equals(num + ":" + cookieValue)) {
+			 	session.setAttribute(num+":cookie", num + ":" + cookieValue);
+			}
+		}
+		
+		if (!session.getAttribute(num+":cookie").equals(session.getAttribute(num+":cookie ex"))) {
+			bdao.updateReadcount(num);
+		 	// 가시적으로  조회수 1 추가해줌
+		 	bb.setReadcount(bb.getReadcount()+1);
+	 	}
+		
 	%>
+
 
 	<script type="text/javascript">
 	function info_delete(){
 			   
-	   		if(confirm("삭제하시겠습니까?")) {
-	         	location.href="deleteWritePro.jsp?num=<%=num%>";
-			} else {
-				return;
-			}
-
+   		if(confirm("삭제하시겠습니까?")) {
+         	location.href="deleteWritePro.jsp?num=<%=num%>";
+		} else {
+			return;
 		}
+
+	}
+
+	$(function(){
+		
+		$('#btn_save').click(function(){
+		
+		var c_id = document.getElementById('c_id').value;
+		
+		var info_b_num = document.getElementById('info_b_num').value;
+		
+		var comment = document.getElementById('comment').value;
+
+		<%if(id==""){%>
+			alert("로그인 해주세요");
+			location.href='../LogIn/LoginForm.jsp';
+		<%}else{%>
+			
+			$.ajax({
+				
+				url:"commentWritePro.jsp",
+				type:"post",
+				data : {
+					c_id : c_id,
+					info_b_num : info_b_num,
+					c_content : comment
+				},
+				sucess:function(data){
+					
+					console.log("데이터 보내기 성공");
+				}
+		
+			});
+		<%}%>
+			
+		});
+	});
+	
+	
 	</script>
 
 	<div class="container">
@@ -78,8 +136,21 @@
 					</td>
 				</tr>
 			</table>
-		</div>
+		<!-- 댓글 시작 -->
+		<% if(id!=""){%>
+				<form id="commentWrite">
+					<div class="input-group mb-3">
+						<input type="hidden" id="c_id" name="c_id" value="<%=id%>">
+						<input type="hidden" id="info_b_num" value="<%=bb.getNum()%>">
+						<textarea id="comment" class="form-control" rows="1"></textarea>
+						<button id="btn_save" class="btn btn-outline-secondary" type="button">등록</button>
+					</div>
+				</form>
+		<%}%>		
+<!-- 댓글 리스트 -->
 
+		<!-- 댓글 끝 -->
+		</div>
 	</div>
 <p/>
 
