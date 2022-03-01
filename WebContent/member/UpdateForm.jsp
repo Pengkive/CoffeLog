@@ -60,7 +60,6 @@
 		var form = document.getElementById('Member');
 		var pw = document.getElementById('pw').value;
 		var email = document.getElementById('email').value;
-		console.log(email);
 		var phone = document.getElementById('phone').value;
 		
 		if (!checkPassword(id, pw)) {

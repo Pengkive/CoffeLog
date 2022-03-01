@@ -27,7 +27,6 @@
 		<%}%>
 	}
 
-
 </script>
 
 <body>
@@ -78,31 +77,31 @@
 	
  <!-- table 생성 -->  	
  <div class="row">		
-  				<table class="table table-hover" align="center">
-				  <thead>
-				    <tr>
-				      <th scope="col">글번호</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">작성자</th>
-				      <th scope="col">작성일</th>
-				      <th scope="col">조회수</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-		<%
-		for(int i=0;i<boardList.size();i++){
-    	  BoardBean bb = (BoardBean) boardList.get(i);
-     	%>
-				    <tr>
-				      <td><%=bb.getNum() %></td>
-				      <td><a href="content.jsp?num=<%=bb.getNum()%>&pageNum=<%=pageNum%>"><%=bb.getSubject()%></a></td>
-				      <td><%=bb.getId() %></td>
-				      <td><%=bb.getReg_date() %></td>
-			   		  <td><%=bb.getReadcount() %></td> 
-				    </tr> <%} %>
-				  </tbody>
-				</table>
-		
+			<table class="table table-hover" align="center">
+			  <thead>
+			    <tr>
+			      <th scope="col">글번호</th>
+			      <th scope="col">제목</th>
+			      <th scope="col">작성자</th>
+			      <th scope="col">작성일</th>
+			      <th scope="col">조회수</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			<%
+			for(int i=0;i<boardList.size();i++){
+	    	  BoardBean bb = (BoardBean) boardList.get(i);
+	     	%>
+			    <tr>
+			      <td><%=bb.getNum() %></td>
+			      <td><a href="content.jsp?num=<%=bb.getNum()%>&pageNum=<%=pageNum%>"><%=bb.getSubject()%></a></td>
+			      <td><%=bb.getId() %></td>
+			      <td><%=bb.getReg_date() %></td>
+			      <td><%=bb.getReadcount() %></td> 
+			    </tr> <%} %>
+			  </tbody>
+			</table>
+	
 </div>			
 <div align="center">
   <%
