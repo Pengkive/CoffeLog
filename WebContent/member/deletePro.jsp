@@ -16,19 +16,9 @@
 		memberDAO mdao = new memberDAO();
 		
 		mdao.MemberDelete(id);
-		
 		session.invalidate();
-		
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("../main/main.jsp");
 		
 	%>
-	
-
-
-
-
-
-
-
 </body>
 </html>

@@ -23,7 +23,6 @@
 	String address = address1+"/"+address2+"/"+address3;
 	
 	
-	
 %>
 
 	<jsp:useBean id="mb" class="com.coffeelog.member.memberBean"/>
@@ -38,7 +37,7 @@
 		
 		mdao.MemberUpdatePro(mb);
 		
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("../main/main.jsp");
 %>
 
 </body>

@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -324,9 +323,8 @@
 
 					<div align="center">
 						<p>
-							<input type="button" class="btn btn-success" value="회원가입"
-								onclick="signupCheck()"> <input type="reset"
-								class="btn btn-danger" value="초기화">
+							<input type="button" class="btn btn-success" value="회원가입" onclick="signupCheck()">
+							<input type="reset" class="btn btn-danger" value="초기화">
 						</p>
 					</div>
 				</form>

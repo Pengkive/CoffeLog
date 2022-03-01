@@ -231,25 +231,25 @@ public class memberDAO {
 	public void MemberUpdate(memberBean mb, String id) {
 		try {
 			conn = getConnection();
-			sql = "select name,gender,email,phone,address from member where id=?";
+			sql = "select name,password, gender,email,phone,address from member where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				mb.setName(rs.getString("name"));
+				mb.setPassword(rs.getString("password"));
 				mb.setGender(rs.getString("gender"));
 				mb.setEmail(rs.getString("email"));
 				mb.setPhone(rs.getString("phone"));
 				mb.setAddress(rs.getString("address"));
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeDB();
 		}
-	}
+	}// Update페이지에 DB 정보 가져오기
 
 	public void MemberUpdatePro(memberBean mb) {
 
@@ -277,12 +277,15 @@ public class memberDAO {
 	}// 정보 update하기
 
 	public void MemberDelete(String id) {
+		
 		try {
 			conn = getConnection();
+			
 			sql = "delete from member where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

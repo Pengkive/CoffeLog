@@ -12,32 +12,7 @@
 	
 	<link rel="stylesheet" href="css/style.css">
 	
-<%-- 	<script src="${contextPath}/resources/js/js.cookie.js"></script> --%>
  
-	</head>
-<%-- 	
-	<% 
-$("#userId").val(Cookies.get('key'));      
-    if($("#userId").val() != ""){
-        $("#idSaveCheck").attr("checked", true);
-    }
-    
-$("#idSaveCheck").change(function(){
-    if($("#idSaveCheck").is(":checked")){
-        Cookies.set('key', $("#userId").val(), { expires: 7 });
-    }else{
-          Cookies.remove('key');
-    }
-});
-     
-$("#userId").keyup(function(){
-    if($("#idSaveCheck").is(":checked")){
-        Cookies.set('key', $("#userId").val(), { expires: 7 });
-    }
-});
-	
-%>
-	 --%>
 	<body class="img js-fullheight" style="background-image: url(images/bg1.jpg);">
 	<section class="ftco-section">
 		<div class="container">
@@ -63,23 +38,12 @@ $("#userId").keyup(function(){
 		            </div>
 		            <div class="form-group d-md-flex">
 		            	<div class="w-50">
-			            	<label class="checkbox-wrap checkbox-primary">Remember Me
-									<input type="checkbox" checked>
-									<span class="checkmark"></span>
-							</label>
 						</div>
 						<div class="w-50 text-md-right">
 							<a href="../member/signUpForm.jsp" style="color: #fff">Sign Up</a>
 						</div>
 		            </div>
 	          </form>
-	<!-- sns 로그인 추가하기  -->
-	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-	          <div class="social d-flex text-center">
-	          	<a href="https://www.facebook.com/" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-	          	<a href="twitter.com" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-	          </div>
-		      </div> -->
 				</div>
 			</div>
 		</div>

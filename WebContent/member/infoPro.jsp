@@ -15,27 +15,23 @@
 		request.setCharacterEncoding("utf-8");
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String content =  request .getParameter("content");
 	
-		BoardDAO bdao = new BoardDAO();
 		memberDAO mdao = new memberDAO();
 		memberBean mb = new memberBean();
-		BoardBean bb = new BoardBean();
 	
 		mb.setId(id);
 		mb.setPassword(password);
-		bb.setContent(content);
 		
 		if (mdao.MemberInfo(mb) == 1) {
 			response.sendRedirect("UpdateForm.jsp");
 		} else if (mdao.MemberInfo(mb) == 0) {
-	%>
-	<!-- 비밀번호 일치 하지않을때 -->
-	<script type="text/javascript">
-		alert("비밀번호가 일치하지 않습니다");
-		history.back();
-	</script>
-	<%
+			%>
+			<!-- 비밀번호 일치 하지않을때 -->
+			<script type="text/javascript">
+				alert("비밀번호가 일치하지 않습니다");
+				history.back();
+			</script>
+			<%
 		} else {
 	%>
 	<!-- 세션 종료됐을시 (아이디값x) -->

@@ -53,7 +53,7 @@
 		    var result = confirm(" 비회원 입니다. 회원가입 하겠습니까? ");
 		    
 		    if(result){
-		    	location.href="../signUpForm.jsp";
+		    	location.href="../member/signUpForm.jsp";
 		    }else{
 		    	 history.back();
 		    }

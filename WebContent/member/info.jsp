@@ -30,7 +30,6 @@
   		</script>
   	<%}%>
 
-
 <!-- 본문 내용 -->
 
 <div class="container">
@@ -46,7 +45,7 @@
 			</div>
 			<div class="form-group col-3 mx-auto">
 			 	<input type="submit" class="btn btn-success" value="회원정보 보기" >&nbsp;&nbsp;
-				<input type="button" class="btn btn-danger" value="메인으로" onclick="a href='main.jsp'">
+				<input type="button" class="btn btn-danger" value="메인으로" onclick="location.href='../main/main.jsp'">
 			</div>
 		</form>
 		
