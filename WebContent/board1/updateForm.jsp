@@ -56,8 +56,8 @@
 				 <div align="center">
 					<input type="submit" class="btn btn-success" value="수정">
 				 </div>
-			</form>
 					<input type="button" class="btn btn-success" value="취소" onclick="location.href='content.jsp?num=<%=bb.getNum()%>&subject=<%=bb.getSubject()%>';">
+			</form>
 			
 		</div>
 	<div class="col-3"></div>

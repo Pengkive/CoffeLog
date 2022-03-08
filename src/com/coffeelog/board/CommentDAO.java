@@ -64,8 +64,9 @@ public class CommentDAO {
 
 
 	//commentWrite(cb) 시작
-	public void commentWrite(CommentBean cb){
+	public int commentWrite(CommentBean cb, int num){
 		
+		int c_writeCheck = 0;
 		int c_num = 0;
 	
 		try {
@@ -81,10 +82,11 @@ public class CommentDAO {
 				sql = "insert into comment values(?,?,now(),?,?)";
 				
 				pstmt = conn.prepareStatement(sql);
+				
 				pstmt.setInt(1, c_num); //comment_number
 				pstmt.setString(2, cb.getC_content());	// comment_content
 				pstmt.setString(3, cb.getC_id());	
-				pstmt.setInt(4, cb.getInfo_b_num());	
+				pstmt.setInt(4,num);	
 				
 				pstmt.executeUpdate();
 				
@@ -98,51 +100,50 @@ public class CommentDAO {
 			closeDB();
 		}
 		
+		return c_writeCheck;
+		
 	}//commentWrite(cb) 끝
 	
 	
 	//commentList()
-	@SuppressWarnings("unchecked")
-	public ArrayList<CommentBean> commentList() {
-
-		ArrayList commentListAll = new ArrayList();
-
+	public ArrayList commentList() {
+		
+		ArrayList co_list = new ArrayList();
+		
 		CommentBean cb = null;
-
+		
 		try {
-
 			conn = getConnection();
-
 			sql = "select * from comment";
+			
 			pstmt = conn.prepareStatement(sql);
-
 			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
+			
+			if(rs.next()){
+				//num, content, date, id, info_b_num
+				
 				cb = new CommentBean();
-
-				cb.setNum(rs.getInt("num"));
+				
+				cb.setC_num(rs.getInt("c_num"));
 				cb.setC_content(rs.getString("c_content"));
 				cb.setC_date(rs.getDate("c_date"));
 				cb.setC_id(rs.getString("c_id"));
 				cb.setInfo_b_num(rs.getInt("info_b_num"));
-
-				commentListAll.add(cb);
-
-			} // while 끝
-
-			System.out.println(" 댓글 모든정보 저장완료! ");
-			System.out.println(" 총 " + commentListAll.size() + "개");
-
+						
+				co_list.add(cb);
+				
+				System.out.println(co_list.add(cb));
+				
+			}
+			
+			System.out.println(" 총 " + co_list.size() + "개");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		} finally{
 			closeDB();
 		}
-
-		return commentListAll;
-	}// commentList()
-	
+		
+		return co_list;
+	}
 	
 }

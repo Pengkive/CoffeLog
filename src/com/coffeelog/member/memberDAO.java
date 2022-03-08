@@ -183,9 +183,9 @@ public class memberDAO {
 				  // mb.date
    
 				   continue;
-			   }  
+			   } 
 				   
-			   }
+			}
 			
 		} catch (SQLException e) {
 			

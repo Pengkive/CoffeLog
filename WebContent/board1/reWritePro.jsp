@@ -10,7 +10,9 @@
 <%
 	BoardDAO bdao = new BoardDAO();
 	
-	bdao.insertWrite(bb);
+	bdao.reInsertWrite(bb);
+	
+	System.out.println(" reWritePro : "+bb);
 	
 	response.sendRedirect("list1.jsp");
 %>

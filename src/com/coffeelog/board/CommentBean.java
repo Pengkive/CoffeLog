@@ -4,22 +4,22 @@ import java.sql.Date;
 
 public class CommentBean {
 
-		private int num;	//댓글 번호
+		private int c_num;	//댓글 번호
 		private String c_content;	//댓글 내용
 		private Date c_date;	//댓글 작성일
 		private String c_id;	//댓글 작성자
 		private int info_b_num;	//게시글 번호
 		/**
-		 * @return the num
+		 * @return the c_num
 		 */
-		public int getNum() {
-			return num;
+		public int getC_num() {
+			return c_num;
 		}
 		/**
-		 * @param num the num to set
+		 * @param c_num the c_num to set
 		 */
-		public void setNum(int num) {
-			this.num = num;
+		public void setC_num(int c_num) {
+			this.c_num = c_num;
 		}
 		/**
 		 * @return the c_content
@@ -72,13 +72,11 @@ public class CommentBean {
 		/* (non-Javadoc)
 		 * @see java.lang.Object#toString()
 		 */
-		
 		@Override
 		public String toString() {
-			return "CommentBean [num=" + num + ", c_content=" + c_content + ", c_date=" + c_date + ", c_id=" + c_id
+			return "CommentBean [c_num=" + c_num + ", c_content=" + c_content + ", c_date=" + c_date + ", c_id=" + c_id
 					+ ", info_b_num=" + info_b_num + "]";
 		}
-		
 		
 }
 		

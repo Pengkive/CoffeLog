@@ -1,5 +1,4 @@
-<%@page import="com.coffeelog.member.memberDAO"%>
-<%@page import="com.coffeelog.member.memberBean"%>
+<%@page import="com.coffeelog.member.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>

@@ -8,9 +8,6 @@ public class memberBean {
 	private String email;
 	private String phone;
 	private String address;
-	
-	
-	
 	/**
 	 * @return the id
 	 */
@@ -95,8 +92,6 @@ public class memberBean {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -105,6 +100,7 @@ public class memberBean {
 		return "memberBean [id=" + id + ", password=" + password + ", name=" + name + ", gender=" + gender + ", email="
 				+ email + ", phone=" + phone + ", address=" + address + "]";
 	}
+	
+	
+
 }
-
-

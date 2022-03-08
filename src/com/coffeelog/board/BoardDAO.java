@@ -87,14 +87,21 @@ public class BoardDAO {
 
 			System.out.println(" 글번호  : " + num);
 
-			sql = "insert into info_board values(?,?,?,?,default,now())";
+			sql = "insert into info_board values(?,?,?,?,?,now(),?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, bb.getSubject());
 			pstmt.setString(3, bb.getContent());
 			pstmt.setString(4, bb.getId());
+			pstmt.setInt(5, bb.getReadcount());
+			pstmt.setInt(6,num); //re_ref에 글번호 num 저장
+			pstmt.setInt(7, bb.getRe_lev());
+			pstmt.setInt(8, bb.getRe_seq());
 			pstmt.executeUpdate();
+			
+			System.out.println("글쓰기 (insertWrite) 완료");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -122,10 +129,9 @@ public class BoardDAO {
 			// 5 데이터 처리
 			if (rs.next()) {
 				cnt = rs.getInt(1);// "count(*)"
-
 			}
 
-			System.out.println("SQL 구문 실행완료!");
+			System.out.println("글 목록 (getBoard) SQL 구문 실행완료!");
 			System.out.println(" 글 개수 : " + cnt + "개");
 
 		} catch (Exception e) {
@@ -140,11 +146,12 @@ public class BoardDAO {
 	}// getBoardCount()
 	
 	// getBoardList() 
-	@SuppressWarnings("unchecked")
-	public ArrayList<BoardBean> getBoardList() {
+	public ArrayList getBoardList() {
 
+		//게시판의 글 정보를 모두 저장하는 가변길이 배열
 		ArrayList boardListAll = new ArrayList();
 
+		//게시판 글 1개의 정보 저장하는 객체
 		BoardBean bb = null;
 
 		try {
@@ -157,21 +164,25 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
+				//데이터 있을때 bb 객체 생성
 				bb = new BoardBean();
 
 				bb.setNum(rs.getInt("num"));
 				bb.setSubject(rs.getString("subject"));
 				bb.setContent(rs.getString("content"));
-				bb.setReg_date((rs.getTimestamp("reg_date")));
+				bb.setReg_date((rs.getDate("reg_date")));
 				bb.setReadcount(rs.getInt("readcount"));
 				bb.setId(rs.getString("id"));
-
+				bb.setRe_ref(rs.getInt("re_ref"));
+				bb.setRe_lev(rs.getInt("re_lev"));
+				bb.setRe_seq(rs.getInt("re_seq"));
+				
+				//Bean - > ArrayList 한칸에 저장
 				boardListAll.add(bb);
 
 			} // while 끝
 
-			System.out.println(" 게시판 모든정보 저장완료! ");
+			System.out.println(" 게시판 모든 정보 저장완료! ");
 			System.out.println(" 총 " + boardListAll.size() + "개");
 
 		} catch (SQLException e) {
@@ -183,27 +194,25 @@ public class BoardDAO {
 		return boardListAll;
 	}// getBoardList()
 
-	// getBoardList(startRow,pageSize)
+	// getBoardList(startRow,pageSize) 페이징
 	
-	public ArrayList<BoardBean> getBoardList(int startRow, int pageSize) {
+	public ArrayList getBoardList(int startRow, int pageSize) {
 		// DB데이터 1row 정보를 BoardBean 저장 -> ArrayList 한칸에 저장
 
 		// 게시판의 글정보를 원하는만큼 저장하는 가변길이 배열
-		ArrayList<BoardBean> boardList = new ArrayList<BoardBean>();
+		ArrayList boardList = new ArrayList();
 
 		// 게시판 글 1개의 정보를 저장하는 객체
 		BoardBean bb = null;
 
 		try {
-			// 1,2 드라이버로드, 디비연결
 			conn = getConnection();
-			// 3 sql 구문 & pstmt 객체
-			// 글 정보 정렬 - order by
 			// - limit a,b (a 시작행-1,b 개수)
 			// ex) 1번글 -> 0번 인덱스
 
-			// sql= "select * from itwill_board";
-			sql = "select * from info_board order by num desc "+ "limit ?,?";
+			sql = "select * from info_board "
+					+ "order by re_ref desc, re_seq asc "
+					+ "limit ?,?";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -211,29 +220,27 @@ public class BoardDAO {
 			pstmt.setInt(1, startRow - 1);
 			pstmt.setInt(2, pageSize);
 
-			// 4 sql 실행
 			rs = pstmt.executeQuery();
 
-			// 5 데이터처리
 			while (rs.next()) {
-				// 데이터 있을때 bb 객체 생성
 				
 				bb = new BoardBean();
-
-				// DB정보 -> Bean 저장
 				bb.setNum(rs.getInt("num"));
 				bb.setSubject(rs.getString("subject"));
 				bb.setContent(rs.getString("content"));
-				bb.setReg_date((rs.getTimestamp("reg_date")));
+				bb.setReg_date((rs.getDate("reg_date")));
 				bb.setReadcount(rs.getInt("readcount"));
 				bb.setId(rs.getString("id"));
+				bb.setRe_ref(rs.getInt("re_ref"));
+				bb.setRe_lev(rs.getInt("re_lev"));
+				bb.setRe_seq(rs.getInt("re_seq"));
 
 				// Bean -> ArrayList 한칸에 저장
 				boardList.add(bb);
 
 			} // while 끝
 
-			System.out.println(" 게시판 모든정보 저장완료! ");
+			System.out.println(" 게시판 모든 정보 저장완료! ");
 			System.out.println(" 총 " + boardList.size() + "개");
 
 		} catch (SQLException e) {
@@ -295,9 +302,12 @@ public class BoardDAO {
 				bb.setNum(rs.getInt("num"));
 				bb.setSubject(rs.getString("subject"));
 				bb.setContent(rs.getString("content"));
-				bb.setReg_date((rs.getTimestamp("reg_date")));
+				bb.setReg_date((rs.getDate("reg_date")));
 				bb.setReadcount(rs.getInt("readcount"));
 				bb.setId(rs.getString("id"));
+				bb.setRe_ref(rs.getInt("re_ref"));
+				bb.setRe_lev(rs.getInt("re_lev"));
+				bb.setRe_seq(rs.getInt("re_seq"));
 			}
 
 			System.out.println(" 글번호에 해당하는 글정보 저장완료! ");
@@ -324,6 +334,9 @@ public class BoardDAO {
 			pstmt.setString(2, bb.getContent());
 			pstmt.setInt(3, bb.getNum());
 			pstmt.executeUpdate();
+
+			System.out.println(" 글 수정 완료! ");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -339,6 +352,9 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
+			
+			System.out.println("글삭제 WriteDelete 완료");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -346,8 +362,67 @@ public class BoardDAO {
 		}
 	}
 	
+	//reInsertWrite(bb)
+	public void reInsertWrite(BoardBean bb){
+		
+		int num = 0;
+		
+		try {
+			conn = getConnection();
+			
+			//답글 번호 저장하기
+			sql="select max(num) from info_board";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				num = rs.getInt(1)+1;
+			}
+			
+			System.out.println("답글 번호 계산 완료 : " + num);
+			
+			//답글 재배치
+			sql="update info_board set re_seq = re_seq+1 where re_ref=? and re_seq>?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bb.getRe_ref());
+			pstmt.setInt(2, bb.getRe_seq());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println(" 답글 재배치 완료 ! ");
+
+			//답글 쓰기
+			sql="insert into info_board "
+					+"(num, subject, content, id, readcount, reg_date, re_ref, re_lev, re_seq) values(?,?,?,?,?,now(),?,?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			pstmt.setString(2, bb.getSubject());
+			pstmt.setString(3, bb.getContent());
+			pstmt.setString(4, bb.getId());
+			pstmt.setInt(5, bb.getReadcount());
+			pstmt.setInt(6, bb.getRe_ref()); //원글의 그룹 번호 사용
+			pstmt.setInt(7, bb.getRe_lev()+1);
+			pstmt.setInt(8, bb.getRe_seq()+1);
+			
+			pstmt.executeUpdate();
+			
+			System.out.println(" 답글 작성 완료! ");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 	
 	//@@@@@ board2 @@@@@
+	
 	// insertLog()
 	public void insertLog(Board2Bean bb2) {
 
@@ -486,15 +561,12 @@ public class BoardDAO {
 		try {
 
 			conn = getConnection();
-			// 3 sql 작성(select) & pstmt 객체
 			sql = "select * from log_board where num=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, num);
-			// 4 sql 실행
 			rs = pstmt.executeQuery();
 
-			// 5 데이터 처리 (bean 저장)
 			if (rs.next()) {
 				bb2 = new Board2Bean();
 
@@ -509,7 +581,6 @@ public class BoardDAO {
 				bb2.setPlace(rs.getString("place"));
 				bb2.setFile(rs.getString("file"));
 				bb2.setContent(rs.getString("content"));
-
 			}
 
 			System.out.println(" 글번호에 해당하는 글정보 저장완료! ");

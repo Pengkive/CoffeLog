@@ -43,7 +43,7 @@
    // 게시판 페이징 처리 : DB에서 원하는 만큼만 글 가져오기
    
    // 한페이지당 보여줄 글의 개수 
-   int pageSize = 5;
+   int pageSize = 10;
    
    // 현페이지가 몇페이지 인지 확인
    String pageNum = request.getParameter("pageNum");
@@ -52,12 +52,10 @@
    }
    
    // 페이지별 시작행 계산하기
-   // 1p -> 1번, 2p -> 11번,3p->21번, ....=>일반화
    int currentPage = Integer.parseInt(pageNum);
    int startRow = (currentPage-1)*pageSize+1;
    
    // 끝행 계산하기
-   // 1p->10번, 2p->20번, 3p->30번 ....=> 일반화
    int endRow = currentPage*pageSize;
    
    // 디비에 저장된 모든 글중에서 원하는 만큼만 가져오기(페이지 사이즈)
@@ -79,7 +77,7 @@
  <div class="row">		
 			<table class="table table-hover" align="center">
 			  <thead>
-			    <tr>
+			    <tr align="center">
 			      <th scope="col">글번호</th>
 			      <th scope="col">제목</th>
 			      <th scope="col">작성자</th>
@@ -93,32 +91,40 @@
 	    	  BoardBean bb = (BoardBean) boardList.get(i);
 	     	%>
 			    <tr>
-			      <td><%=bb.getNum() %></td>
-			      <td><a href="content.jsp?num=<%=bb.getNum()%>&pageNum=<%=pageNum%>"><%=bb.getSubject()%></a></td>
-			      <td><%=bb.getId() %></td>
-			      <td><%=bb.getReg_date() %></td>
-			      <td><%=bb.getReadcount() %></td> 
+			      <td align="center"><%=bb.getNum() %></td>
+			      <td>
+			      <!-- 답글일때 보여줄 이미지 -->
+			      <%
+			      	int wid = 0;
+			      	if(bb.getRe_lev()>0){
+			      		wid = 10 * bb.getRe_lev();
+			      	%>
+			      	 <img alt="" src="level.gif" height="15" width="<%=wid%>">
+			 		 ┕
+			      <%
+			      	}
+			      %>
+			      <a href="content.jsp?num=<%=bb.getNum()%>&pageNum=<%=pageNum%>"><%=bb.getSubject()%></a></td>
+			      <td align="center"><%=bb.getId() %></td>
+			      <td align="center"><%=bb.getReg_date() %></td>
+			      <td align="center"><%=bb.getReadcount() %></td> 
 			    </tr> <%} %>
 			  </tbody>
 			</table>
 	
 </div>			
 <div align="center">
+    <!-- 페이징 처리 - 하단부 페이지 링크 -->
   <%
-    //////////////////////////////////////////////////////
-    // 페이징 처리 - 하단부 페이지 링크
     if(cnt != 0){// 글이있을때 표시
 
     	//전체 페이지수 계산
-    	// ex)  총 50개 -> 한페이지당 10개 출력, 5개
-		//      총 57개 ->       "        , 6개
 		int pageCount = cnt/pageSize+(cnt % pageSize == 0? 0:1);
 		
 		// 한 화면에 보여줄 페이지 번호의 개수 (페이지 블럭)
 		int pageBlock = 2;
 		
 		// 페이지 블럭의 시작페이지 번호 
-		// ex)  1~10 페이지 : 1, 11~20페이지 : 11, 21~30페이지 : 21
         int startPage = ((currentPage-1)/pageBlock) * pageBlock + 1;
 		
 		// 페이지 블럭의 끝 페이지 번호
@@ -135,7 +141,7 @@
     		<%
     	}   	
     	
-    	// 숫자  1....5
+    	// 페이지 번호
     	for(int i=startPage;i<=endPage;i++){
     		%>
     		    <a href="list1.jsp?pageNum=<%=i%>">[<%=i %>]</a> 
@@ -150,7 +156,6 @@
     	}
 
     }
-    //////////////////////////////////////////////////////
   %>
 </div>  		
   	<div class="col-4"></div>

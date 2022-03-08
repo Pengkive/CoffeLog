@@ -74,7 +74,7 @@
  <!-- 글쓰기 버튼 생성 --> 
  	<div align="right">
 		<input type="button" class="btn btn-success" value="글쓰기" onclick="write2()">
-	</div>
+	</div><br>
 	
  <!-- table 생성 -->  	
  <div class="row">		
